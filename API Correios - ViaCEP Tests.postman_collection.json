@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "47431e5a-24c5-43fa-876e-650549183253",
+		"name": "API Correios - ViaCEP Tests",
+		"description": "Collection para testes funcionais da API pública ViaCEP.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19521315"
+	},
+	"item": [
+		{
+			"name": "CT01 - Consultar CEP válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code é 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Validar campos essenciais', function () {",
+							"    const json = pm.response.json();",
+							"    pm.expect(json).to.have.property('logradouro');",
+							"    pm.expect(json).to.have.property('bairro');",
+							"    pm.expect(json.localidade).to.eql('Santo André');",
+							"    pm.expect(json.uf).to.eql('SP');",
+							"});",
+							"",
+							"pm.test('Tempo de resposta menor que 2000ms', function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://viacep.com.br/ws/09121420/json/",
+					"protocol": "https",
+					"host": [
+						"viacep",
+						"com",
+						"br"
+					],
+					"path": [
+						"ws",
+						"09121420",
+						"json",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CT02 - Consultar CEP inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code é 200', function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false,
+				"followOriginalHttpMethod": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://viacep.com.br/ws/99999999/json/",
+					"protocol": "https",
+					"host": [
+						"viacep",
+						"com",
+						"br"
+					],
+					"path": [
+						"ws",
+						"99999999",
+						"json",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CT03 - Consultar CEP com formato inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Retorno deve ser 400 ou 422', function () {",
+							"    pm.expect([400, 422]).to.include(pm.response.code);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://viacep.com.br/ws/ABCDE123/json/",
+					"protocol": "https",
+					"host": [
+						"viacep",
+						"com",
+						"br"
+					],
+					"path": [
+						"ws",
+						"ABCDE123",
+						"json",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CT04 - Validar contrato do JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const camposObrigatorios = ['cep', 'logradouro',  'bairro', 'localidade', 'estado'];",
+							"const json = pm.response.json();",
+							"",
+							"pm.test('Validar contrato do objeto', function () {",
+							"    camposObrigatorios.forEach(campo => {",
+							"        pm.expect(json).to.have.property(campo);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://viacep.com.br/ws/09121420/json/",
+					"protocol": "https",
+					"host": [
+						"viacep",
+						"com",
+						"br"
+					],
+					"path": [
+						"ws",
+						"09121420",
+						"json",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CT05 - CEP com caracteres especiais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Código inválido deve retornar erro', function () {",
+							"    pm.expect([400, 422]).to.include(pm.response.code);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://viacep.com.br/ws/01-001-000/json/",
+					"protocol": "https",
+					"host": [
+						"viacep",
+						"com",
+						"br"
+					],
+					"path": [
+						"ws",
+						"01-001-000",
+						"json",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

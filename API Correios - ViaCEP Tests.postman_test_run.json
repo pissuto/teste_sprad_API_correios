@@ -1,0 +1,189 @@
+{
+	"id": "95a73069-b742-4a4e-82da-98a0ad318b94",
+	"name": "API Correios - ViaCEP Tests",
+	"timestamp": "2026-03-26T17:09:38.708Z",
+	"collection_id": "19521315-47431e5a-24c5-43fa-876e-650549183253",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 7,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2026-03-26T17:09:36.964Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "eac91f49-075a-41cd-aea7-3d4fb6cb6ce0",
+			"name": "CT01 - Consultar CEP válido",
+			"url": "https://viacep.com.br/ws/09121420/json/",
+			"time": 413,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true,
+				"Validar campos essenciais": true,
+				"Tempo de resposta menor que 2000ms": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validar campos essenciais": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Tempo de resposta menor que 2000ms": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				413
+			],
+			"allTests": [
+				{
+					"Status code é 200": true,
+					"Validar campos essenciais": true,
+					"Tempo de resposta menor que 2000ms": true
+				}
+			]
+		},
+		{
+			"id": "7c967e83-c6cc-4028-9205-8698b965cd84",
+			"name": "CT02 - Consultar CEP inexistente",
+			"url": "https://viacep.com.br/ws/99999999/json/",
+			"time": 140,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code é 200": true
+			},
+			"testPassFailCounts": {
+				"Status code é 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				140
+			],
+			"allTests": [
+				{
+					"Status code é 200": true
+				}
+			]
+		},
+		{
+			"id": "f22c1599-e48b-4f98-bf35-3406e803f036",
+			"name": "CT03 - Consultar CEP com formato inválido",
+			"url": "https://viacep.com.br/ws/ABCDE123/json/",
+			"time": 138,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Retorno deve ser 400 ou 422": true
+			},
+			"testPassFailCounts": {
+				"Retorno deve ser 400 ou 422": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				138
+			],
+			"allTests": [
+				{
+					"Retorno deve ser 400 ou 422": true
+				}
+			]
+		},
+		{
+			"id": "c4d131b6-accc-4e6f-804f-1745eae9f255",
+			"name": "CT04 - Validar contrato do JSON",
+			"url": "https://viacep.com.br/ws/09121420/json/",
+			"time": 432,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Validar contrato do objeto": true
+			},
+			"testPassFailCounts": {
+				"Validar contrato do objeto": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				432
+			],
+			"allTests": [
+				{
+					"Validar contrato do objeto": true
+				}
+			]
+		},
+		{
+			"id": "f2a9f921-bc76-4d38-a429-55bfc2936183",
+			"name": "CT05 - CEP com caracteres especiais",
+			"url": "https://viacep.com.br/ws/01-001-000/json/",
+			"time": 144,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Código inválido deve retornar erro": true
+			},
+			"testPassFailCounts": {
+				"Código inválido deve retornar erro": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				144
+			],
+			"allTests": [
+				{
+					"Código inválido deve retornar erro": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1267,
+	"collection": {
+		"requests": [
+			{
+				"id": "eac91f49-075a-41cd-aea7-3d4fb6cb6ce0",
+				"method": "GET"
+			},
+			{
+				"id": "7c967e83-c6cc-4028-9205-8698b965cd84",
+				"method": "GET"
+			},
+			{
+				"id": "f22c1599-e48b-4f98-bf35-3406e803f036",
+				"method": "GET"
+			},
+			{
+				"id": "c4d131b6-accc-4e6f-804f-1745eae9f255",
+				"method": "GET"
+			},
+			{
+				"id": "f2a9f921-bc76-4d38-a429-55bfc2936183",
+				"method": "GET"
+			}
+		]
+	}
+}
